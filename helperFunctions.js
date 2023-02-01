@@ -15,3 +15,7 @@ function shuffleArray(array) {
   
     return array;
   }
+
+  function roundToGrid(number) {
+    return round(number / gridUnits) * gridUnits;
+  }

@@ -6,6 +6,7 @@ let fillHSL = {
   s: 100,
   l: 40,
 };
+let gridUnits = 4;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -14,10 +15,10 @@ function setup() {
   //make background windows
   for(let i = 0; i < windows.length; i++) {
     windows[i] = new UIWindow({
-      x: random(-100, width),
-      y: random(-100, height),
-      width: random(100, 200),
-      height: random(60, 300),
+      x: roundToGrid(random(-100, width)),
+      y: roundToGrid(random(-100, height)),
+      width: roundToGrid(random(100, 200)),
+      height: roundToGrid(random(60, 300)),
       strokeWeight: 1,
       title: "xXWindow" + i + "Xx",
     });
@@ -25,30 +26,30 @@ function setup() {
 
   windows = shuffleArray(windows);
 
-  //make windows
+  //make custom foreground windows
   windows[windows.length - 2] = new UIWindow({
-    x: (width / 2),
-    y: 40,
-    width: 200,
-    height: 300,
+    x: roundToGrid(width / 2),
+    y: roundToGrid(40),
+    width: roundToGrid(200),
+    height: roundToGrid(300),
     strokeWeight: 1,
     title: "Big Window",
   });
   
   windows[windows.length - 1] = new UIWindow({
-    x: (width / 2) - 100,
-    y: 230,
-    width: 150,
-    height: 200,
+    x: roundToGrid((width / 2) - 100),
+    y: roundToGrid(230),
+    width: roundToGrid(150),
+    height: roundToGrid(200),
     strokeWeight: 1,
     title: "Little Window",
   });
   
   windows[windows.length - 0] = new UIWindow({
-    x: (width / 2) + 30,
-    y: 320,
-    width: 100,
-    height: 60,
+    x: roundToGrid((width / 2) + 30),
+    y: roundToGrid(320),
+    width: roundToGrid(100),
+    height: roundToGrid(60),
     strokeWeight: 1,
     title: "Tiny Window",
   });

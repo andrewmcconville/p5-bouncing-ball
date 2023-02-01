@@ -1,8 +1,8 @@
 class UIWindow {
     constructor(config) {
-      this.position = createVector(round(config.x), round(config.y));
-      this.width = round(config.width);
-      this.height = round(config.height);
+      this.position = createVector(config.x, config.y);
+      this.width = config.width;
+      this.height = config.height;
       this.title = config.title;
       this.headerHeight = 30;
       this.contentHeight = this.height - this.headerHeight;
