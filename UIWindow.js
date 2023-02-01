@@ -1,17 +1,18 @@
 class UIWindow {
     constructor(config) {
-      this.position = createVector(config.x, config.y);
-      this.width = config.width;
-      this.height = config.height;
+      this.position = createVector(round(config.x), round(config.y));
+      this.width = round(config.width);
+      this.height = round(config.height);
       this.title = config.title;
       this.headerHeight = 30;
-      this.contentHeight = config.height - this.headerHeight;
+      this.contentHeight = this.height - this.headerHeight;
       this.strokeWeight = config.strokeWeight;
       this.stroke = {
         h: fillHSL.h,
         s: 50,
         l: 75,
-      }
+      };
+      this.contents = [];
     }
     
     drawWindow() {
@@ -58,7 +59,7 @@ class UIWindow {
       rect(this.position.x + 4, this.position.y + 4, this.width, this.height);
     }
     
-    getWindowContentBounds() {
+    getContainerBounds() {
       return {      
         left: this.position.x,      
         right: this.position.x + this.width,

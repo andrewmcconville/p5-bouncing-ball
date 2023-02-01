@@ -1,8 +1,6 @@
 let testBall;
-let balls = [];
-let ballCount = 60;
-let windows = [];
-let windowCount = 100;
+let balls = Array(60);
+let windows = Array(100);
 let fillHSL = {
   h: 281,
   s: 100,
@@ -12,9 +10,23 @@ let fillHSL = {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   colorMode(HSL, 360, 100, 100, 1);
-  
+
+  //make background windows
+  for(let i = 0; i < windows.length; i++) {
+    windows[i] = new UIWindow({
+      x: random(-100, width),
+      y: random(-100, height),
+      width: random(100, 200),
+      height: random(60, 300),
+      strokeWeight: 1,
+      title: "xXWindow" + i + "Xx",
+    });
+  }
+
+  windows = shuffleArray(windows);
+
   //make windows
-  windows[0] = new UIWindow({
+  windows[windows.length - 2] = new UIWindow({
     x: (width / 2),
     y: 40,
     width: 200,
@@ -23,7 +35,7 @@ function setup() {
     title: "Big Window",
   });
   
-  windows[1] = new UIWindow({
+  windows[windows.length - 1] = new UIWindow({
     x: (width / 2) - 100,
     y: 230,
     width: 150,
@@ -32,7 +44,7 @@ function setup() {
     title: "Little Window",
   });
   
-  windows[2] = new UIWindow({
+  windows[windows.length - 0] = new UIWindow({
     x: (width / 2) + 30,
     y: 320,
     width: 100,
@@ -40,18 +52,6 @@ function setup() {
     strokeWeight: 1,
     title: "Tiny Window",
   });
-  
-  //make other background windows
-  for(let i = 3; i < windowCount; i++) {
-    windows.push(new UIWindow({
-      x: random(-100, width),
-      y: random(-100, height),
-      width: random(100, 200),
-      height: random(50, 300),
-      strokeWeight: 1,
-      title: "Window" + i,
-    }));
-  }
   
   //make test ball (the first ball)
   testBall = new Ball({
@@ -64,37 +64,30 @@ function setup() {
   });
   
   //make a bunch of other balls for each window
-  for(let i = 0; i < ballCount; i++) {
-    let diameter = random(1, 20);
-    balls.push(new Ball({
+  for(let i = 0; i < balls.length; i++) {
+    balls[i] = new Ball({
       xStartPosition: 10,
       yStartPosition: height / 2,
       velocity: p5.Vector.random2D().mult(random(0, 4)),
-      width: diameter,
-      height: diameter,
+      diameter: random(1, 20),
       strokeWeight: 0,
-      container: random() < 0.6 ? windows[0] : random() < 0.8 ? windows[1] : windows[2],
-    }));
+      container: random() < 0.6 ? windows[windows.length - 3] : random() < 0.8 ? windows[windows.length - 2] : windows[windows.length -1],
+      //container: windows[round(random(0, windows.length - 1))],
+    });
+    windows[windows.indexOf(balls[i].container)].contents.push(i);
   }
 }
 
 function draw() {
   background(fillHSL.h, 20, 95);
   
-  //draw background windows
-  for(let i = 3; i < windows.length; i++) {
-    windows[i].drawWindow();
-  }
-  
   //draw windows that contain balls
-  for(let i = 0; i < 3; i++) {  
-    windows[i].drawWindow();  
-    for(let j = 0; j < balls.length; j++) {
-      if(balls[j].container == windows[i]) {
-        balls[j].drawBall();
-      }
-    }
-  }
+  windows.forEach(window => {
+    window.drawWindow();
+    window.contents.forEach(content => {
+      balls[content].drawBall();
+    });
+  });
   
   //draw the foreground ball
   testBall.drawBall();
