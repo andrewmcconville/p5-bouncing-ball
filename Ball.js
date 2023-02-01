@@ -9,7 +9,8 @@ class Ball {
         this.container = config.container;
         this.position = createVector(
           (config.container.getContainerBounds().left + config.container.getContainerBounds().right) / 2,
-          (config.container.getContainerBounds().top + config.container.getContainerBounds().bottom) / 2);
+          (config.container.getContainerBounds().top + config.container.getContainerBounds().bottom) / 2
+        );
         this.leftBound = config.container.getContainerBounds().left;
         this.rightBound = config.container.getContainerBounds().right;
         this.topBound = config.container.getContainerBounds().top;
@@ -18,7 +19,7 @@ class Ball {
       // else use the canvas as reference
       else {      
         this.container = null;
-        this.position = createVector(config.xStartPosition, config.yStartPosition);
+        this.position = config.position;
         this.leftBound = 0;
         this.rightBound = width;
         this.topBound = 0;

@@ -1,5 +1,5 @@
 let testBall;
-let balls = Array(60);
+let balls = Array(600);
 let windows = Array(100);
 let fillHSL = {
   h: 281,
@@ -15,8 +15,7 @@ function setup() {
   //make background windows
   for(let i = 0; i < windows.length; i++) {
     windows[i] = new UIWindow({
-      x: roundToGrid(random(-100, width)),
-      y: roundToGrid(random(-100, height)),
+      position: createVector(roundToGrid(random(-100, width)), roundToGrid(random(-100, height))),
       width: roundToGrid(random(100, 200)),
       height: roundToGrid(random(60, 300)),
       strokeWeight: 1,
@@ -28,8 +27,7 @@ function setup() {
 
   //make custom foreground windows
   windows[windows.length - 2] = new UIWindow({
-    x: roundToGrid(width / 2),
-    y: roundToGrid(40),
+    position: createVector(roundToGrid(width / 2), roundToGrid(40)),
     width: roundToGrid(200),
     height: roundToGrid(300),
     strokeWeight: 1,
@@ -37,8 +35,7 @@ function setup() {
   });
   
   windows[windows.length - 1] = new UIWindow({
-    x: roundToGrid((width / 2) - 100),
-    y: roundToGrid(230),
+    position: createVector(roundToGrid((width / 2) - 100), roundToGrid(230)),
     width: roundToGrid(150),
     height: roundToGrid(200),
     strokeWeight: 1,
@@ -46,8 +43,7 @@ function setup() {
   });
   
   windows[windows.length - 0] = new UIWindow({
-    x: roundToGrid((width / 2) + 30),
-    y: roundToGrid(320),
+    position: createVector(roundToGrid((width / 2) + 30), 320),
     width: roundToGrid(100),
     height: roundToGrid(60),
     strokeWeight: 1,
@@ -56,24 +52,21 @@ function setup() {
   
   //make test ball (the first ball)
   testBall = new Ball({
-    xStartPosition: 10,
-    yStartPosition: 210,
+    position: createVector(10, 210),
     velocity: createVector(1, 0),
-    width: 10,
-    height: 10,
+    diameter: 10,
     strokeWeight: 1,
   });
   
   //make a bunch of other balls for each window
   for(let i = 0; i < balls.length; i++) {
     balls[i] = new Ball({
-      xStartPosition: 10,
-      yStartPosition: height / 2,
+      position: createVector(0, 0),
       velocity: p5.Vector.random2D().mult(random(0, 4)),
       diameter: random(1, 20),
       strokeWeight: 0,
-      container: random() < 0.6 ? windows[windows.length - 3] : random() < 0.8 ? windows[windows.length - 2] : windows[windows.length -1],
-      //container: windows[round(random(0, windows.length - 1))],
+      //container: random() < 0.6 ? windows[windows.length - 3] : random() < 0.8 ? windows[windows.length - 2] : windows[windows.length -1],
+      container: windows[round(random(0, windows.length - 1))],
     });
     windows[windows.indexOf(balls[i].container)].contents.push(i);
   }
