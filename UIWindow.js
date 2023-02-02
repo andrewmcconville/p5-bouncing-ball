@@ -6,7 +6,6 @@ class UIWindow {
       this.height = config.height;
       this.title = config.title;
       this.headerHeight = 30;
-      this.contentHeight = this.height - this.headerHeight;
       this.strokeWeight = config.strokeWeight;
       this.stroke = {
         h: fillHSL.h,
@@ -35,7 +34,7 @@ class UIWindow {
         {
           text: this.title,
           font: '"IBM Plex Mono",Arial,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
-          size: 10,
+          size: 11,
           fill: {
             h: fillHSL.h,
             s: fillHSL.s,
@@ -55,7 +54,7 @@ class UIWindow {
       this.image.fill(fillHSL.h, 20, 95);
       this.image.strokeWeight(this.strokeWeight);
       this.image.stroke(this.stroke.h, this.stroke.s, this.stroke.l);
-      this.image.rect(1, 1 + this.headerHeight, this.width - this.shadowOffset, this.contentHeight - this.shadowOffset);
+      this.image.rect(1, 1 + this.headerHeight, this.width - this.shadowOffset, this.height - this.headerHeight - this.shadowOffset);
     }
     
     makeWindowShadow() {
@@ -69,7 +68,7 @@ class UIWindow {
         left: this.position.x,      
         right: this.position.x + this.width - this.shadowOffset,
         top: this.position.y + this.headerHeight,
-        bottom: this.position.y + this.headerHeight + this.contentHeight - this.shadowOffset,
+        bottom: this.position.y + this.headerHeight + this.height - this.headerHeight - this.shadowOffset,
       }
     }
   }
