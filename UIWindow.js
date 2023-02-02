@@ -30,19 +30,19 @@ class UIWindow {
       this.image.fill(fillHSL.h, 20, 99);
       this.image.strokeWeight(this.strokeWeight);
       this.image.stroke(this.stroke.h, this.stroke.s, this.stroke.l);
-      this.image.rect(0, 0, this.width - this.shadowOffset, this.headerHeight);
+      this.image.rect(1, 1, this.width - this.shadowOffset, this.headerHeight);
       new TextLabel(
         {
           text: this.title,
           font: '"IBM Plex Mono",Arial,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
-          size: 12,
+          size: 10,
           fill: {
             h: fillHSL.h,
             s: fillHSL.s,
             l: fillHSL.l,
           },
           x: 0,
-          y: 0,
+          y: 1,
           width: this.width,
           height: this.headerHeight,
           horizAlign: CENTER,
@@ -55,7 +55,7 @@ class UIWindow {
       this.image.fill(fillHSL.h, 20, 95);
       this.image.strokeWeight(this.strokeWeight);
       this.image.stroke(this.stroke.h, this.stroke.s, this.stroke.l);
-      this.image.rect(0, 0 + this.headerHeight, this.width - this.shadowOffset, this.contentHeight - this.shadowOffset);
+      this.image.rect(1, 1 + this.headerHeight, this.width - this.shadowOffset, this.contentHeight - this.shadowOffset);
     }
     
     makeWindowShadow() {
