@@ -1,5 +1,5 @@
 let testBall;
-let balls = Array(600);
+let balls = Array(1000);
 let windows = Array(100);
 let fillHSL = {
   h: 281,
@@ -7,6 +7,11 @@ let fillHSL = {
   l: 40,
 };
 let gridUnits = 4;
+let myFont;
+
+function preload() {
+  //myFont = loadFont('https://fonts.gstatic.com/s/ibmplexmono/v15/-F63fjptAgt5VM-kVkqdyU8n1i8q1w.woff2');
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -51,12 +56,12 @@ function setup() {
   });
   
   //make test ball (the first ball)
-  testBall = new Ball({
-    position: createVector(10, 210),
-    velocity: createVector(1, 0),
-    diameter: 10,
-    strokeWeight: 1,
-  });
+  // testBall = new Ball({
+  //   position: createVector(10, 210),
+  //   velocity: createVector(1, 0),
+  //   diameter: 10,
+  //   strokeWeight: 1,
+  // });
   
   //make a bunch of other balls for each window
   for(let i = 0; i < balls.length; i++) {
@@ -84,5 +89,5 @@ function draw() {
   });
   
   //draw the foreground ball
-  testBall.drawBall();
+  //testBall.drawBall();
 }

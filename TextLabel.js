@@ -11,12 +11,12 @@ class TextLabel {
         this.vertAlign = config.vertAlign;
     }
 
-    drawTextLabel() {
-        textFont(this.font);    
-        strokeWeight(0);
-        textSize(this.size);
-        fill(this.fill.h, this.fill.s, this.fill.l);
-        textAlign(this.horizAlign, this.vertAlign);
-        text(this.text, this.position.x, this.position.y, this.width, this.height);
+    drawTextLabel(buffer) {
+        buffer.textFont(this.font);    
+        buffer.strokeWeight(0);
+        buffer.textSize(this.size);
+        buffer.fill(this.fill.h, this.fill.s, this.fill.l);
+        buffer.textAlign(this.horizAlign, this.vertAlign);
+        buffer.text(this.text, this.position.x, this.position.y, this.width, this.height);
     }
 }

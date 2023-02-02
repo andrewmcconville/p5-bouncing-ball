@@ -1,5 +1,6 @@
 class UIWindow {
     constructor(config) {
+      this.shadowOffset = 4;
       this.position = config.position;
       this.width = config.width;
       this.height = config.height;
@@ -13,58 +14,62 @@ class UIWindow {
         l: 75,
       };
       this.contents = [];
+      this.image = createGraphics(this.width, this.height);
+
+      this.image.colorMode(HSL, 360, 100, 100, 1);
+      this.makeWindowShadow();
+      this.makeWindowContent();
+      this.makeWindowHeader();
     }
     
     drawWindow() {
-      this.drawWindowShadow();
-      this.drawWindowContent();
-      this.drawWindowHeader();
-    }  
+      image(this.image, this.position.x, this.position.y);
+    }
     
-    drawWindowHeader() {
-      fill(fillHSL.h, 20, 99);
-      strokeWeight(this.strokeWeight);
-      stroke(this.stroke.h, this.stroke.s, this.stroke.l);
-      rect(this.position.x, this.position.y, this.width, this.headerHeight);
-      let headerTitle = new TextLabel(
+    makeWindowHeader() {
+      this.image.fill(fillHSL.h, 20, 99);
+      this.image.strokeWeight(this.strokeWeight);
+      this.image.stroke(this.stroke.h, this.stroke.s, this.stroke.l);
+      this.image.rect(0, 0, this.width - this.shadowOffset, this.headerHeight);
+      new TextLabel(
         {
           text: this.title,
-          font: "IBM Plex Mono",
+          font: '"IBM Plex Mono",Arial,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
           size: 12,
           fill: {
             h: fillHSL.h,
             s: fillHSL.s,
             l: fillHSL.l,
           },
-          x: this.position.x,
-          y: this.position.y,
+          x: 0,
+          y: 0,
           width: this.width,
           height: this.headerHeight,
           horizAlign: CENTER,
           vertAlign: CENTER,
         }
-      ).drawTextLabel();
+      ).drawTextLabel(this.image);
     }
     
-    drawWindowContent() {
-      fill(fillHSL.h, 20, 95);
-      strokeWeight(this.strokeWeight);
-      stroke(this.stroke.h, this.stroke.s, this.stroke.l);
-      rect(this.position.x, this.position.y + this.headerHeight, this.width, this.contentHeight);
+    makeWindowContent() {
+      this.image.fill(fillHSL.h, 20, 95);
+      this.image.strokeWeight(this.strokeWeight);
+      this.image.stroke(this.stroke.h, this.stroke.s, this.stroke.l);
+      this.image.rect(0, 0 + this.headerHeight, this.width - this.shadowOffset, this.contentHeight - this.shadowOffset);
     }
     
-    drawWindowShadow() {
-      fill(fillHSL.h, 30, 60, 0.1);
-      strokeWeight(0);
-      rect(this.position.x + 4, this.position.y + 4, this.width, this.height);
+    makeWindowShadow() {
+      this.image.fill(fillHSL.h, 30, 60, 0.1);
+      this.image.strokeWeight(0);
+      this.image.rect(this.shadowOffset, this.shadowOffset, this.width, this.height);
     }
     
     getContainerBounds() {
       return {      
         left: this.position.x,      
-        right: this.position.x + this.width,
+        right: this.position.x + this.width - this.shadowOffset,
         top: this.position.y + this.headerHeight,
-        bottom: this.position.y + this.headerHeight + this.contentHeight,
+        bottom: this.position.y + this.headerHeight + this.contentHeight - this.shadowOffset,
       }
     }
   }
